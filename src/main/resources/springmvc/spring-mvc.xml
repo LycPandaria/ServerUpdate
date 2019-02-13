@@ -4,8 +4,16 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.
 xmlns:mvc="http://www.springframework.org/schema/mvc" 
 xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
-   <!-- 扫描controller（controller层注入） -->
-   <context:component-scan base-package="com.ynrcc.simpleserver.web"/>  
+    <description>Spring MVC Configuration</description>
+
+    <!-- 加载配置文件 -->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:properties/*.properties"/>
+
+    <!-- 扫描controller（controller层注入） -->
+    <!-- base package 如果有多个，用 "," 隔开 -->
+   <context:component-scan base-package="com.ynrcc" use-default-filters="false">
+       <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+   </context:component-scan>
 
 	<!-- 使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
@@ -24,11 +32,13 @@ xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.spri
     </bean>
    
 	<!-- 设置配置方案 -->
-    <mvc:annotation-driven>
+    <mvc:annotation-driven >
     	<!-- 设置不使用默认的消息转换器 -->
-        <mvc:message-converters register-defaults="false">
+        <mvc:message-converters register-defaults="true">
         	<!-- 配置Spring的转换器 -->
-        	<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
     		<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/>
     		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
     		<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
@@ -46,5 +56,10 @@ xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.spri
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-    
+
+    <!-- 文件上传拦截器，设置最大上传文件大小 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10485760"/> <!-- 10MB -->
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
 </beans>
