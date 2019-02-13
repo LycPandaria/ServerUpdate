@@ -8,3 +8,6 @@
 基础版链接：[基础版SSM](https://github.com/LycPandaria/simple_server)
 
 基础版SSM框架搭建教程：[SpringMVC+Maven+Mybatis+MySQL项目搭建](https://github.com/LycPandaria/JavaInterview/blob/master/notes/demo_springmvc%2Bmybatis%2Bmaven.md)
+
+## 为系统添加 Log
+[Log 配置](./note/log.md)
