@@ -8,7 +8,7 @@ public class User implements Serializable {
     private String username;        // 用户名
     private String loginname;       // 登录名
     private String password;        // 密码
-    private Integer state;          // 用户状态
+    private Integer status;          // 用户状态
     private Date createDate;        // 建档日期
 
     public User() {
@@ -47,12 +47,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateDate() {

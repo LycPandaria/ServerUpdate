@@ -1,4 +1,4 @@
-﻿package com.ynrcc.hrm.util.tag;
+package com.ynrcc.hrm.util.tag;
 
 import java.io.IOException;
 

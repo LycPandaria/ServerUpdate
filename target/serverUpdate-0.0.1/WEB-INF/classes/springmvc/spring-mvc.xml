@@ -17,7 +17,17 @@ xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.spri
 
 	<!-- 使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
-    
+
+    <!-- 定义 SpringMVC 拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 拦截所有请求 -->
+            <mvc:mapping path="/*"/>
+            <!-- 自定义判断用户权限的拦截器 -->
+            <bean class="com.ynrcc.hrm.interceptor.AuthorizedInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
    <!-- 对模型视图添加前后缀 -->
    <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
