@@ -145,10 +145,6 @@
 		type="text/javascript"></script>
 	<script src="${ctx}/js/metronic/plugins/bootstrap/js/bootstrap.min.js"
 		type="text/javascript"></script>
-	<!--[if lt IE 9]>
-   <script src="${ctx}/js/metronic/plugins/excanvas.js"></script>
-   <script src="${ctx}/js/metronic/plugins/respond.js"></script>  
-   <![endif]-->
 	<script src="${ctx}/js/metronic/plugins/breakpoints/breakpoints.js"
 		type="text/javascript"></script>
 	<!-- IMPORTANT! jquery.slimscroll.min.js depends on jquery-ui-1.10.1.custom.min.js -->
