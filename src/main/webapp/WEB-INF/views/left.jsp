@@ -42,7 +42,7 @@
 		  <tr><td class="left_nav_top"><div class="font1">用户管理</div></td></tr>
 		  <tr valign="top">
 		    <td class="left_nav_bgshw" height="50">
-			  <p class="left_nav_link"><img src="${ctx}/images/left_nav_arrow.gif">&nbsp;&nbsp;<a href="user/selectUser" target="main">用户查询</a></img></p>
+			  <p class="left_nav_link"><img src="${ctx}/images/left_nav_arrow.gif">&nbsp;&nbsp;<a href="user/select" target="main">用户查询</a></img></p>
 			  <p class="left_nav_link"><img src="${ctx}/images/left_nav_arrow.gif">&nbsp;&nbsp;<a href="user/addUser?flag=1" target="main">添加用户</a></img></p>
 			</td>
 		  </tr>

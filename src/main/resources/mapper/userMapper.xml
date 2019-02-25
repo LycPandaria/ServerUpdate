@@ -35,4 +35,31 @@
         FROM USER_INF
         WHERE  loginname = #{loginname} AND password = #{password}
     </select>
+
+    <select id="count" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM USER_INF
+        WHERE 1=1
+        <if test="user.username != null || user.username != ''">
+            AND username LIKE CONCAT ('%', #{user.username}, '%')
+        </if>
+    </select>
+
+    <select id="selectUsers" resultMap="User">
+        SELECT
+          <include refid="userCols"/>
+        FROM USER_INF
+        WHERE 1=1
+        <if test="user.username != null || user.username != ''">
+            AND username LIKE CONCAT ('%', #{user.username}, '%')
+        </if>
+        <if test="pageModel != null">
+            AND LIMIT #{pageModel.firstLimitParam}, #{pageModel.pageSize}
+        </if>
+    </select>
+
+    <delete id="delete" >
+        DELETE FROM USER_INF WHERE id = {#id}
+    </delete>
 </mapper>
