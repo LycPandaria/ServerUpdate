@@ -1,34 +1,149 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ynrcc.hrm.dao.EmployeeDao">
-    <sql id="employeeCols">
-        id,
-        d.id AS "dept.id",
-        j.id AS "job.id",
-        name,
-        card_id AS cardId,
-        address,
-        post_code AS postCode,
-        tel,
-        phone,
-        qq_num AS qqNum,
-        email,
-        sex,
-        party,
-        birthday,
-        race,
-        education,
-        speciality,
-        hobby,
-        remark,
-        create_date AS createDate
-    </sql>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ynrcc.hrm.dao.EmployeeDao" >
+  <resultMap id="Employee" type="com.ynrcc.hrm.model.Employee" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <!--<result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+    <result column="JOB_ID" property="jobId" jdbcType="INTEGER" />-->
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="QQ_NUM" property="qqNum" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="INTEGER" />
+    <result column="PARTY" property="party" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="RACE" property="race" jdbcType="VARCHAR" />
+    <result column="EDUCATION" property="education" jdbcType="VARCHAR" />
+    <result column="SPECIALITY" property="speciality" jdbcType="VARCHAR" />
+    <result column="HOBBY" property="hobby" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <association property="dept" column="DEPT_ID"
+                 select="com.ynrcc.hrm.dao.DeptDao.get" />
+    <association property="job" column="JOB_ID"
+                 select="com.ynrcc.hrm.dao.JobDao.get" />
+  </resultMap>
 
-    <select id="get" resultType="com.ynrcc.hrm.model.Employee">
-        SELECT
-            <include refid="employeeCols"/>
-        FROM employee_inf
-        WHERE id = #{id}
+  <sql id="Base_Column_List" >
+    ID, DEPT_ID, JOB_ID, NAME, CARD_ID, ADDRESS, POST_CODE, TEL, PHONE, QQ_NUM, EMAIL, 
+    SEX, PARTY, BIRTHDAY, RACE, EDUCATION, SPECIALITY, HOBBY, REMARK, CREATE_DATE
+  </sql>
+
+  <select id="get" resultMap="Employee" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_inf
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+    <select id="count" resultType="Integer">
+        select
+            count(*)
+        from employee_inf
+        <where>
+
+        </where>
     </select>
+
+    <select id="findEmployee" resultMap="Employee">
+        select
+            *
+        from employee_inf
+        <where>
+
+        </where>
+        <if test="pageModel != null">
+            LIMIT #{pageModel.firstLimitParam}, #{pageModel.pageSize}
+        </if>
+    </select>
+
+
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from employee_inf
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" parameterType="com.ynrcc.hrm.model.Employee" >
+    insert into employee_inf (DEPT_ID, JOB_ID,
+      NAME, CARD_ID, ADDRESS, 
+      POST_CODE, TEL, PHONE, 
+      QQ_NUM, EMAIL, SEX, 
+      PARTY, BIRTHDAY, RACE, 
+      EDUCATION, SPECIALITY, HOBBY, 
+      REMARK, CREATE_DATE)
+    values (#{dept.id,jdbcType=INTEGER}, #{job.id,jdbcType=INTEGER},
+      #{name,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{qqNum,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{party,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{race,jdbcType=VARCHAR}, 
+      #{education,jdbcType=VARCHAR}, #{speciality,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="update" parameterType="com.ynrcc.hrm.model.Employee" >
+    update employee_inf
+    <set >
+      <if test="dept.id != null" >
+        DEPT_ID = #{dept.id,jdbcType=INTEGER},
+      </if>
+      <if test="job.id != null" >
+        JOB_ID = #{job.id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        CARD_ID = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNum != null" >
+        QQ_NUM = #{qqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="party != null" >
+        PARTY = #{party,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="race != null" >
+        RACE = #{race,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        EDUCATION = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        SPECIALITY = #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        HOBBY = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

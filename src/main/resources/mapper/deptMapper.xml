@@ -20,5 +20,56 @@
         FROM DEPT_INF
         WHERE ID = #{id}
     </select>
-    
+
+    <select id="count" resultType="Integer">
+        SELECT
+        COUNT(*)
+        FROM DEPT_INF
+        WHERE 1=1
+        <if test="dept.name != null and dept.name != ''">
+            AND name LIKE CONCAT ('%', #{dept.name}, '%')
+        </if>
+    </select>
+
+    <select id="findDept" resultMap="Dept">
+        SELECT
+          <include refid="deptCols"/>
+        FROM DEPT_INF
+        WHERE 1=1
+        <if test="dept.name != null and dept.name != ''">
+            AND name LIKE CONCAT ('%', #{dept.name}, '%')
+        </if>
+        <if test="pageModel != null">
+            LIMIT #{pageModel.firstLimitParam}, #{pageModel.pageSize}
+        </if>
+    </select>
+
+    <select id="getAllDept" resultMap="Dept">
+        select * from dept_inf
+    </select>
+
+    <delete id="delete">
+        DELETE FROM DEPT_INF WHERE id=#{id}
+    </delete>
+
+    <update id="update">
+        UPDATE DEPT_INF
+        <if test="name != null and name !=''">
+            SET name = #{name},
+        </if>
+        <if test="remark != null and remark !=''">
+            remark = #{remark}
+        </if>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert">
+        INSERT INTO DEPT_INF(
+        name,
+        remark
+        ) VALUES (
+        #{name},
+        #{remark}
+        )
+    </insert>
 </mapper>

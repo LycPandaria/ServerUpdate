@@ -10,10 +10,71 @@
         user_id AS "user.id"
     </sql>
 
-    <select id="get" resultType="com.ynrcc.hrm.model.Notice">
+    <resultMap id="NoticeMapper" type="com.ynrcc.hrm.model.Notice">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="createDate" column="create_date"/>
+        <!-- 关联用户 -->
+        <association property="user" column="user_id"
+                     select="com.ynrcc.hrm.dao.UserDao.get"
+                     javaType="com.ynrcc.hrm.model.User" />
+    </resultMap>
+
+    <select id="get" resultMap="NoticeMapper">
         SELECT
-            <include refid="noticeCols"/>
+            *
         FROM notice_inf
         WHERE id = #{id}
     </select>
+
+    <select id="count" resultType="Integer">
+        select
+            count(*)
+        from notice_inf
+        where 1=1
+        <if test="notice.title != null and notice.title != ''">
+            AND name LIKE CONCAT ('%', #{notice.title}, '%')
+        </if>
+    </select>
+
+    <select id="findNotice" resultMap="NoticeMapper">
+        select
+            *
+        from notice_inf
+        where 1=1
+        <if test="notice.title != null and notice.title != ''">
+            AND name LIKE CONCAT ('%', #{notice.title}, '%')
+        </if>
+    </select>
+
+    <delete id="delete">
+        delete from notice_inf
+        where id=#{id}
+    </delete>
+
+    <update id="update">
+        update notice_inf
+        <if test="title != null and title !=''">
+            SET title = #{title},
+        </if>
+        <if test="content != null and content !=''">
+            content = #{content}
+        </if>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="save" >
+        INSERT INTO notice_inf(
+            title,
+            content,
+            create_date,
+            user_id
+        ) VALUES (
+            #{title},
+            #{content},
+            #{createDate},
+            #{user.id}
+        )
+    </insert>
 </mapper>

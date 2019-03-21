@@ -88,6 +88,48 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * 更新用户
+     * @param flag 1-跳转到修改页面，2-执行修改操作
+     * @param user 要修改的用户对象
+     * @param mv
+     * @return
+     */
+    @RequestMapping(value = "/user/update")
+    public ModelAndView updateUser(String flag,
+                                   @ModelAttribute User user,
+                                   ModelAndView mv){
+        if(flag.equals("1")){
+            // 根据 ID 查找用户
+            User target = hrmService.selectUserById(user.getId());
+            mv.addObject("user", target);
+            mv.setViewName("user/updateUser");
+        }else {
+            // 执行修改
+            hrmService.updateUser(user);
+            mv.setViewName("redirect:/user/select");
+        }
+        return mv;
+    }
 
+    /**
+     * 新增用户
+     * @param flag 1-跳转新增页面 2-执行新增操作
+     * @param user
+     * @param mv
+     * @return
+     */
+    @RequestMapping(value = "/user/add")
+    public ModelAndView addUser(String flag,
+                                   @ModelAttribute User user,
+                                   ModelAndView mv){
+        if(flag.equals("1")){
+            mv.setViewName("user/addUser");
+        }else{
+            hrmService.insertUser(user);
+            mv.setViewName("redirect:/user/select");
+        }
+        return mv;
+    }
 
 }

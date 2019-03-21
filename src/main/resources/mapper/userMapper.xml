@@ -41,25 +41,58 @@
             COUNT(*)
         FROM USER_INF
         WHERE 1=1
-        <if test="user.username != null || user.username != ''">
+        <if test="user.username != null and user.username != ''">
             AND username LIKE CONCAT ('%', #{user.username}, '%')
         </if>
     </select>
 
-    <select id="selectUsers" resultMap="User">
+    <select id="findUser" resultMap="User">
         SELECT
           <include refid="userCols"/>
         FROM USER_INF
         WHERE 1=1
-        <if test="user.username != null || user.username != ''">
+        <if test="user.username != null and user.username != ''">
             AND username LIKE CONCAT ('%', #{user.username}, '%')
         </if>
         <if test="pageModel != null">
-            AND LIMIT #{pageModel.firstLimitParam}, #{pageModel.pageSize}
+            LIMIT #{pageModel.firstLimitParam}, #{pageModel.pageSize}
         </if>
     </select>
 
     <delete id="delete" >
         DELETE FROM USER_INF WHERE id = {#id}
     </delete>
+
+    <update id="update">
+        UPDATE USER_INF
+        <if test="username != null and username != ''">
+          set username = #{username},
+        </if>
+        <if test="loginname != null and loginname != ''">
+            loginname = #{loginname},
+        </if>
+        <if test="password != null and password != ''">
+             password = #{password},
+        </if>
+        <if test="status != null and status != ''">
+             status = #{status}
+        </if>
+        where id=#{id}
+    </update>
+
+    <insert id="insert">
+        insert into USER_INF (
+        username,
+        loginname,
+        password,
+        status,
+        createdate
+        ) values (
+        #{username},
+        #{loginname},
+        #{password},
+        #{status},
+        #{createDate}
+        )
+    </insert>
 </mapper>

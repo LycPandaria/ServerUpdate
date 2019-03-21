@@ -45,4 +45,16 @@ public interface UserDao {
      * @return
      */
     void delete(Integer id);
+
+    /**
+     * 更新用户
+     * @param user
+     */
+    void update(User user);
+
+    /**
+     * 插入新用户
+     * @param user
+     */
+    void insert(User user);
 }

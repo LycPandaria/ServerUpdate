@@ -14,4 +14,56 @@
         FROM job_inf
         WHERE id = #{id}
     </select>
+
+    <select id="count" resultType="Integer">
+        select
+            count(*)
+        from job_inf
+        WHERE 1=1
+        <if test="job.name != null and job.name != ''">
+            AND name LIKE CONCAT ('%', #{job.name}, '%')
+        </if>
+    </select>
+
+    <select id="findJob" resultType="com.ynrcc.hrm.model.Job">
+        select
+          <include refid="jobCols"/>
+        from job_inf
+        WHERE 1=1
+        <if test="job.name != null and job.name != ''">
+            AND name LIKE CONCAT ('%', #{job.name}, '%')
+        </if>
+        <if test="pageModel != null">
+            LIMIT #{pageModel.firstLimitParam}, #{pageModel.pageSize}
+        </if>
+    </select>
+
+    <select id="getAllJob" resultType="com.ynrcc.hrm.model.Job">
+        select * from job_inf
+    </select>
+    <update id="update">
+        update job_inf
+        <if test="name != null and name !=''">
+            SET name = #{name},
+        </if>
+        <if test="remark != null and remark !=''">
+            remark = #{remark}
+        </if>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from job_inf
+        where id = #{id}
+    </delete>
+
+    <insert id="save">
+        INSERT INTO job_inf(
+            name,
+            remark
+        ) VALUES (
+            #{name},
+            #{remark}
+        )
+    </insert>
 </mapper>
