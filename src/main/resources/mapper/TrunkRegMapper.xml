@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ynrcc.hrm.dao.TrunkRegMapper" >
+  <resultMap id="BaseResultMap" type="com.ynrcc.hrm.model.TrunkReg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="chk_inst_no" property="chkInstNo" jdbcType="VARCHAR" />
+    <result column="chk_dt" property="chkDt" jdbcType="VARCHAR" />
+    <result column="checker" property="checker" jdbcType="VARCHAR" />
+    <result column="vise_checker" property="viseChecker" jdbcType="VARCHAR" />
+    <result column="teller_type" property="tellerType" jdbcType="CHAR" />
+    <result column="atm_type" property="atmType" jdbcType="CHAR" />
+    <result column="teller" property="teller" jdbcType="VARCHAR" />
+    <result column="trunk_no" property="trunkNo" jdbcType="VARCHAR" />
+    <result column="cash" property="cash" jdbcType="DECIMAL" />
+    <result column="cash_sys" property="cashSys" jdbcType="DECIMAL" />
+    <result column="voucher_type" property="voucherType" jdbcType="INTEGER" />
+    <result column="voucher_amt" property="voucherAmt" jdbcType="INTEGER" />
+    <result column="voucher_sys" property="voucherSys" jdbcType="INTEGER" />
+    <result column="hand_voucher_type" property="handVoucherType" jdbcType="INTEGER" />
+    <result column="hand_voucher_amt" property="handVoucherAmt" jdbcType="INTEGER" />
+    <result column="seal_type" property="sealType" jdbcType="INTEGER" />
+    <result column="seal_amt" property="sealAmt" jdbcType="INTEGER" />
+    <result column="seal_sys" property="sealSys" jdbcType="INTEGER" />
+    <result column="key_type" property="keyType" jdbcType="INTEGER" />
+    <result column="key_amt" property="keyAmt" jdbcType="INTEGER" />
+    <result column="key_sys" property="keySys" jdbcType="INTEGER" />
+    <result column="dzyw_amt" property="dzywAmt" jdbcType="INTEGER" />
+    <result column="dzyw_sys" property="dzywSys" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, chk_inst_no, chk_dt, checker, vise_checker, teller_type, atm_type, teller, trunk_no, 
+    cash, cash_sys, voucher_type, voucher_amt, voucher_sys, hand_voucher_type, hand_voucher_amt, 
+    seal_type, seal_amt, seal_sys, key_type, key_amt, key_sys, dzyw_amt, dzyw_sys, remarks, 
+    create_by, create_date, update_by, update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trunk_reg_new
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trunk_reg_new
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ynrcc.hrm.model.TrunkReg" >
+    insert into trunk_reg_new (id, chk_inst_no, chk_dt, 
+      checker, vise_checker, teller_type, 
+      atm_type, teller, trunk_no, 
+      cash, cash_sys, voucher_type, 
+      voucher_amt, voucher_sys, hand_voucher_type, 
+      hand_voucher_amt, seal_type, seal_amt, 
+      seal_sys, key_type, key_amt, 
+      key_sys, dzyw_amt, dzyw_sys, 
+      remarks, create_by, create_date, 
+      update_by, update_date)
+    values (#{id,jdbcType=INTEGER}, #{chkInstNo,jdbcType=VARCHAR}, #{chkDt,jdbcType=VARCHAR}, 
+      #{checker,jdbcType=VARCHAR}, #{viseChecker,jdbcType=VARCHAR}, #{tellerType,jdbcType=CHAR}, 
+      #{atmType,jdbcType=CHAR}, #{teller,jdbcType=VARCHAR}, #{trunkNo,jdbcType=VARCHAR}, 
+      #{cash,jdbcType=DECIMAL}, #{cashSys,jdbcType=DECIMAL}, #{voucherType,jdbcType=INTEGER}, 
+      #{voucherAmt,jdbcType=INTEGER}, #{voucherSys,jdbcType=INTEGER}, #{handVoucherType,jdbcType=INTEGER}, 
+      #{handVoucherAmt,jdbcType=INTEGER}, #{sealType,jdbcType=INTEGER}, #{sealAmt,jdbcType=INTEGER}, 
+      #{sealSys,jdbcType=INTEGER}, #{keyType,jdbcType=INTEGER}, #{keyAmt,jdbcType=INTEGER}, 
+      #{keySys,jdbcType=INTEGER}, #{dzywAmt,jdbcType=INTEGER}, #{dzywSys,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ynrcc.hrm.model.TrunkReg" >
+    insert into trunk_reg_new
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="chkInstNo != null" >
+        chk_inst_no,
+      </if>
+      <if test="chkDt != null" >
+        chk_dt,
+      </if>
+      <if test="checker != null" >
+        checker,
+      </if>
+      <if test="viseChecker != null" >
+        vise_checker,
+      </if>
+      <if test="tellerType != null" >
+        teller_type,
+      </if>
+      <if test="atmType != null" >
+        atm_type,
+      </if>
+      <if test="teller != null" >
+        teller,
+      </if>
+      <if test="trunkNo != null" >
+        trunk_no,
+      </if>
+      <if test="cash != null" >
+        cash,
+      </if>
+      <if test="cashSys != null" >
+        cash_sys,
+      </if>
+      <if test="voucherType != null" >
+        voucher_type,
+      </if>
+      <if test="voucherAmt != null" >
+        voucher_amt,
+      </if>
+      <if test="voucherSys != null" >
+        voucher_sys,
+      </if>
+      <if test="handVoucherType != null" >
+        hand_voucher_type,
+      </if>
+      <if test="handVoucherAmt != null" >
+        hand_voucher_amt,
+      </if>
+      <if test="sealType != null" >
+        seal_type,
+      </if>
+      <if test="sealAmt != null" >
+        seal_amt,
+      </if>
+      <if test="sealSys != null" >
+        seal_sys,
+      </if>
+      <if test="keyType != null" >
+        key_type,
+      </if>
+      <if test="keyAmt != null" >
+        key_amt,
+      </if>
+      <if test="keySys != null" >
+        key_sys,
+      </if>
+      <if test="dzywAmt != null" >
+        dzyw_amt,
+      </if>
+      <if test="dzywSys != null" >
+        dzyw_sys,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="chkInstNo != null" >
+        #{chkInstNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chkDt != null" >
+        #{chkDt,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null" >
+        #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="viseChecker != null" >
+        #{viseChecker,jdbcType=VARCHAR},
+      </if>
+      <if test="tellerType != null" >
+        #{tellerType,jdbcType=CHAR},
+      </if>
+      <if test="atmType != null" >
+        #{atmType,jdbcType=CHAR},
+      </if>
+      <if test="teller != null" >
+        #{teller,jdbcType=VARCHAR},
+      </if>
+      <if test="trunkNo != null" >
+        #{trunkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cash != null" >
+        #{cash,jdbcType=DECIMAL},
+      </if>
+      <if test="cashSys != null" >
+        #{cashSys,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherType != null" >
+        #{voucherType,jdbcType=INTEGER},
+      </if>
+      <if test="voucherAmt != null" >
+        #{voucherAmt,jdbcType=INTEGER},
+      </if>
+      <if test="voucherSys != null" >
+        #{voucherSys,jdbcType=INTEGER},
+      </if>
+      <if test="handVoucherType != null" >
+        #{handVoucherType,jdbcType=INTEGER},
+      </if>
+      <if test="handVoucherAmt != null" >
+        #{handVoucherAmt,jdbcType=INTEGER},
+      </if>
+      <if test="sealType != null" >
+        #{sealType,jdbcType=INTEGER},
+      </if>
+      <if test="sealAmt != null" >
+        #{sealAmt,jdbcType=INTEGER},
+      </if>
+      <if test="sealSys != null" >
+        #{sealSys,jdbcType=INTEGER},
+      </if>
+      <if test="keyType != null" >
+        #{keyType,jdbcType=INTEGER},
+      </if>
+      <if test="keyAmt != null" >
+        #{keyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="keySys != null" >
+        #{keySys,jdbcType=INTEGER},
+      </if>
+      <if test="dzywAmt != null" >
+        #{dzywAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dzywSys != null" >
+        #{dzywSys,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ynrcc.hrm.model.TrunkReg" >
+    update trunk_reg_new
+    <set >
+      <if test="chkInstNo != null" >
+        chk_inst_no = #{chkInstNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chkDt != null" >
+        chk_dt = #{chkDt,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null" >
+        checker = #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="viseChecker != null" >
+        vise_checker = #{viseChecker,jdbcType=VARCHAR},
+      </if>
+      <if test="tellerType != null" >
+        teller_type = #{tellerType,jdbcType=CHAR},
+      </if>
+      <if test="atmType != null" >
+        atm_type = #{atmType,jdbcType=CHAR},
+      </if>
+      <if test="teller != null" >
+        teller = #{teller,jdbcType=VARCHAR},
+      </if>
+      <if test="trunkNo != null" >
+        trunk_no = #{trunkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cash != null" >
+        cash = #{cash,jdbcType=DECIMAL},
+      </if>
+      <if test="cashSys != null" >
+        cash_sys = #{cashSys,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherType != null" >
+        voucher_type = #{voucherType,jdbcType=INTEGER},
+      </if>
+      <if test="voucherAmt != null" >
+        voucher_amt = #{voucherAmt,jdbcType=INTEGER},
+      </if>
+      <if test="voucherSys != null" >
+        voucher_sys = #{voucherSys,jdbcType=INTEGER},
+      </if>
+      <if test="handVoucherType != null" >
+        hand_voucher_type = #{handVoucherType,jdbcType=INTEGER},
+      </if>
+      <if test="handVoucherAmt != null" >
+        hand_voucher_amt = #{handVoucherAmt,jdbcType=INTEGER},
+      </if>
+      <if test="sealType != null" >
+        seal_type = #{sealType,jdbcType=INTEGER},
+      </if>
+      <if test="sealAmt != null" >
+        seal_amt = #{sealAmt,jdbcType=INTEGER},
+      </if>
+      <if test="sealSys != null" >
+        seal_sys = #{sealSys,jdbcType=INTEGER},
+      </if>
+      <if test="keyType != null" >
+        key_type = #{keyType,jdbcType=INTEGER},
+      </if>
+      <if test="keyAmt != null" >
+        key_amt = #{keyAmt,jdbcType=INTEGER},
+      </if>
+      <if test="keySys != null" >
+        key_sys = #{keySys,jdbcType=INTEGER},
+      </if>
+      <if test="dzywAmt != null" >
+        dzyw_amt = #{dzywAmt,jdbcType=INTEGER},
+      </if>
+      <if test="dzywSys != null" >
+        dzyw_sys = #{dzywSys,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ynrcc.hrm.model.TrunkReg" >
+    update trunk_reg_new
+    set chk_inst_no = #{chkInstNo,jdbcType=VARCHAR},
+      chk_dt = #{chkDt,jdbcType=VARCHAR},
+      checker = #{checker,jdbcType=VARCHAR},
+      vise_checker = #{viseChecker,jdbcType=VARCHAR},
+      teller_type = #{tellerType,jdbcType=CHAR},
+      atm_type = #{atmType,jdbcType=CHAR},
+      teller = #{teller,jdbcType=VARCHAR},
+      trunk_no = #{trunkNo,jdbcType=VARCHAR},
+      cash = #{cash,jdbcType=DECIMAL},
+      cash_sys = #{cashSys,jdbcType=DECIMAL},
+      voucher_type = #{voucherType,jdbcType=INTEGER},
+      voucher_amt = #{voucherAmt,jdbcType=INTEGER},
+      voucher_sys = #{voucherSys,jdbcType=INTEGER},
+      hand_voucher_type = #{handVoucherType,jdbcType=INTEGER},
+      hand_voucher_amt = #{handVoucherAmt,jdbcType=INTEGER},
+      seal_type = #{sealType,jdbcType=INTEGER},
+      seal_amt = #{sealAmt,jdbcType=INTEGER},
+      seal_sys = #{sealSys,jdbcType=INTEGER},
+      key_type = #{keyType,jdbcType=INTEGER},
+      key_amt = #{keyAmt,jdbcType=INTEGER},
+      key_sys = #{keySys,jdbcType=INTEGER},
+      dzyw_amt = #{dzywAmt,jdbcType=INTEGER},
+      dzyw_sys = #{dzywSys,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -31,7 +31,6 @@
         生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径,如./src/main/java，
         也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下
         -->
-        <!--<javaModelGenerator targetPackage="com.joey.mybaties.test.pojo" targetProject="MAVEN">-->
         <javaModelGenerator targetPackage="com.ynrcc.hrm.model" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
             <!-- 从数据库返回的值被清理前后的空格  -->
